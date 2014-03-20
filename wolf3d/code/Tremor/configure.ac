@@ -62,26 +62,26 @@ ldflags_save="$LDFLAGS"
 if test -z "${GCC}"; then
   case ${host} in 
     arm-*-*)
-      DEBUG="-g -D_ARM_ASSEM_" 
       CFLAGS="-O -D_ARM_ASSEM_"
+      DEBUG="-g -D_ARM_ASSEM_" 
       PROFILE="-p -g -O -D_ARM_ASSEM_"
       ;;
     *)
-      DEBUG="-g"
       CFLAGS="-O"
+      DEBUG="-g"
       PROFILE="-g -p"
       ;;
   esac
 else
   case ${host} in 
     arm-*-*)
-      DEBUG="-g -Wall -D__NO_MATH_INLINES -fsigned-char -D_ARM_ASSEM_"
       CFLAGS="-O2 -D_ARM_ASSEM_ -fsigned-char"
+      DEBUG="-g -Wall -D__NO_MATH_INLINES -fsigned-char -D_ARM_ASSEM_"
       PROFILE="-W -pg -g -O2 -D_ARM_ASSEM_ -fsigned-char -fno-inline-functions"
       ;;
     *)
-      DEBUG="-g -Wall -D__NO_MATH_INLINES -fsigned-char"
       CFLAGS="-O2 -Wall -fsigned-char"
+      DEBUG="-g -Wall -D__NO_MATH_INLINES -fsigned-char"
       PROFILE="-Wall -pg -g -O2 -fsigned-char -fno-inline-functions"
       ;;
   esac

@@ -9,3 +9,11 @@ config.h
 debian/Makefile
 libtool
 stamp-*
+*.dylib
+*.a
+*.la
+*.lai
+*.lo
+*libs/*
+vorbis
+ivorbisfile_example
