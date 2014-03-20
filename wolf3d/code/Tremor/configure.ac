@@ -1,11 +1,12 @@
-dnl# Process this file with autoconf to produce a configure script
+dnl#                                               -*- Autoconf -*-
+dnl# Process this file with autoconf to produce a configure script.
 
 dnl#------------------------------------------------
 dnl# Initialization and Versioning
 dnl#------------------------------------------------
 
 AC_PREREQ([2.69])
-AC_INIT([libvorbisidec],[1.2.0])
+AC_INIT([libvorbisidec],[1.2.0],[])
 AC_CONFIG_SRCDIR([mdct.c])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
@@ -13,7 +14,7 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
 
-AM_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADERS([config.h])
 
 AM_INIT_AUTOMAKE([foreign])
 
@@ -22,26 +23,37 @@ dnl# Library versioning
 V_LIB_CURRENT=1
 V_LIB_REVISION=2
 V_LIB_AGE=0
-AC_SUBST(V_LIB_CURRENT)
-AC_SUBST(V_LIB_REVISION)
-AC_SUBST(V_LIB_AGE)
+AC_SUBST([V_LIB_CURRENT])
+AC_SUBST([V_LIB_REVISION])
+AC_SUBST([V_LIB_AGE])
 
-dnl --------------------------------------------------  
-dnl Check for programs
-dnl --------------------------------------------------  
+dnl#--------------------------------------------------  
+dnl# Check for programs
+dnl#--------------------------------------------------  
 
-dnl save $CFLAGS since AC_PROG_CC likes to insert "-g -O2"
-dnl if $CFLAGS is blank
-cflags_save="$CFLAGS"
+dnl# save ${CFLAGS} since AC_PROG_CC likes to insert "-g -O2"
+dnl# if ${CFLAGS} is blank
+cflags_save="${CFLAGS}"
 AC_PROG_CC
 AC_PROG_CPP
-CFLAGS="$cflags_save"
+AC_PROG_CXX
+CFLAGS="${cflags_save}"
 
-AM_PROG_LIBTOOL
+AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_SUBST([LN_S])
 
-dnl --------------------------------------------------
-dnl Set build flags based on environment
-dnl --------------------------------------------------
+# keep autoscan happy:
+if test "x" = "y"; then
+  test -x `which autoscan`
+  AC_PROG_RANLIB
+fi
+
+LT_INIT
+
+dnl#--------------------------------------------------
+dnl# Set build flags based on environment
+dnl#--------------------------------------------------
 
 dnl Set some target options
 
@@ -77,7 +89,7 @@ LDFLAGS="$LDFLAGS $ldflags_save"
 
 
 # Test whenever ld supports -version-script
-AC_PROG_LD
+LT_PATH_LD
 AC_PROG_LD_GNU
 if test "x$lt_cv_prog_gnu_ld" = "xyes"; then
    SHLIB_VERSION_ARG="Wl,--version-script=Version_script"
@@ -93,9 +105,9 @@ if test "x$lt_cv_prog_gnu_ld" = "xyes"; then
    LDFLAGS="$LDFLAGS $SHLIB_VERSION_ARG"
 fi
 
-dnl --------------------------------------------------
-dnl Options 
-dnl --------------------------------------------------
+dnl#--------------------------------------------------
+dnl# Options 
+dnl#--------------------------------------------------
 
 AC_ARG_ENABLE(
    low-accuracy,
@@ -103,17 +115,17 @@ AC_ARG_ENABLE(
    CFLAGS="$CFLAGS -D_LOW_ACCURACY_"
 )
 
-dnl --------------------------------------------------
-dnl Check for headers
-dnl --------------------------------------------------
+dnl#--------------------------------------------------
+dnl# Check for headers
+dnl#--------------------------------------------------
 
 unset ac_cv_header_memory_h
 AC_CHECK_HEADER([memory.h],[CFLAGS="${CFLAGS} -DUSE_MEMORY_H"],[:])
 AC_CHECK_HEADERS([fcntl.h malloc.h malloc/malloc.h])
 
-dnl --------------------------------------------------
-dnl Check for typedefs, structures, etc
-dnl --------------------------------------------------
+dnl#--------------------------------------------------
+dnl# Check for typedefs, structures, etc
+dnl#--------------------------------------------------
 
 AC_C_BIGENDIAN
 AC_C_INLINE
@@ -122,23 +134,23 @@ AC_TYPE_INT16_T
 AC_TYPE_INT32_T
 AC_TYPE_INT64_T
 
-dnl --------------------------------------------------
-dnl Check for library functions
-dnl --------------------------------------------------
+dnl#--------------------------------------------------
+dnl# Check for library functions
+dnl#--------------------------------------------------
 
 AC_FUNC_ALLOCA
 AC_FUNC_MEMCMP
 AC_CHECK_FUNCS([memchr memset])
 
-dnl --------------------------------------------------
-dnl Do substitutions
-dnl --------------------------------------------------
+dnl#--------------------------------------------------
+dnl# Do substitutions
+dnl#--------------------------------------------------
 
-LIBS="$LIBS"
+LIBS="${LIBS}"
 
-AC_SUBST(LIBS)
-AC_SUBST(DEBUG)
-AC_SUBST(PROFILE)
+AC_SUBST([LIBS])
+AC_SUBST([DEBUG])
+AC_SUBST([PROFILE])
 
-AC_CONFIG_FILES([Makefile Version_script])
+AC_CONFIG_FILES([Makefile Version_script debian/Makefile])
 AC_OUTPUT
