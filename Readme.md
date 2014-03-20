@@ -1,7 +1,7 @@
 Copied and pasted from Carmack\_iPhone\_development.doc:
 
-iPhone development*
-===================
+*iPhone development*
+====================
 By John Carmack, Technical Director, Id Software
 
 I had been frustrated for over a year with the fact that we did NOT have any
@@ -11,7 +11,7 @@ Unfortunately, things have conspired against us being out early on the platform.
 
 Robert Duffy and I spent a week early on starting to bring up the Orcs & Elves DS
 codebase on the iPhone, which would have been a nice project for a launch title,
-but it wasn't going to be a slam dunk.  The iPhone graphics hardware is a more
+but it was not going to be a slam dunk.  The iPhone graphics hardware is a more
 capable superset of the DS hardware (the driver overhead is far, far worse, though),
 but the codebase was fairly DS specific, with lots of Nintendo API calls all
 over the place.  I got the basics drawing by converting things to OpenGL ES,
@@ -22,25 +22,25 @@ user interface would need to be re-thought and re-tested, it was clear that the
 project would take several months of development time, and need artists and
 designers as well as coding work.  I made the pitch that this would still be a
 good plan, but the idMobile team was already committed to the Wolfenstein RPG
-project for conventional Java and BREW mobile phones, and Anna didn't want to
+project for conventional Java and BREW mobile phones, and Anna did not want to
 slip a scheduled milestone on the established, successful development directions
 there for a speculative iPhone project.
 
 After thinking about the platform's capabilities a bit more, I had a plan for an
 aggressive, iPhone specific project that we actually started putting some
-internal resources on, but the programmer tasked with it didn't work out and
+internal resources on, but the programmer tasked with it did not work out and
 was let go.  In an odd coincidence, an outside development team came to us with
 a proposal for a similar project on the Wii, and we decided to have them work
 on the iPhone project with us instead.  We should be announcing this project
-soon, and it is cool.  It is also late, but that's software development...
+soon, and it is cool.  It is also late, but that is software development...
 
 Late last year, the mobile team had finished up all the planned versions of
 Wolfenstein RPG, but EA had suggested that in addition to the hundreds of
 customized versions they normally produce for all the various mobile phones,
 they were interested in having another team do a significant media quality
 improvement on it for the iPhone.  While Wolf RPG is a very finely crafted
-product for traditional cell phones, it wasn't designed for the iPhone's
-interface or capabilities, so it wouldn't be an ideal project, but it should
+product for traditional cell phones, it was not designed for the iPhone's
+interface or capabilities, so it would not be an ideal project, but it should
 still be worth doing.  When we got the first build to test, I was pleased with
 how the high res artwork looked, but I was appalled at how slow it ran.  It
 felt like one of the mid range java versions, not better than the high end BREW
@@ -77,7 +77,7 @@ office, we kept it going at a low priority.  One of the projects Cass was
 tinkering around with at home was a port of Quake 3, and we talked about
 different interface strategies every now and then.
 Unfortunately, when we sat down to try a few things out, we found that
-Q3 wasn't really running fast enough to make good judgments on iPhone control
+Q3 was not really running fast enough to make good judgments on iPhone control
 systems.  The hardware should be capable enough, but it will take some
 architectural changes to the rendering code to get the most out of it.
 
@@ -97,7 +97,7 @@ One of the development comments about "removal of the gangrenous 16 bit code"
 made me smile.
 
 It was nice and simple to download, extract data from a commercial copy of
-Wolfenstein, and start playing on a PC at high resolution.  Things weren't as
+Wolfenstein, and start playing on a PC at high resolution.  Things were not as
 smooth as they should be at first, but two little changes made a huge difference
 -- going at VBL synced update rates with one tic per cycle instead of counting
 milliseconds to match 70 hz game tics, and fixing a bug with premature
@@ -118,7 +118,7 @@ interested in working on an iPhone project with us, but it had been over a year
 since the last update, and he must have moved on to other things.  I thought
 about it a bit, and decided that I would go ahead and do the project myself.
 The "big projects" at Id are always top priority, but the systems programming
-work in Rage is largely completed, and the team hasn't been gated on me for
+work in Rage is largely completed, and the team has not been gated on me for
 anything in a while.  There is going to be memory and framerate optimization
 work going on until it ships, but I decided that I could spend a couple weeks
 away from Rage to work on the iPhone exclusively.  Cass continued to help with
@@ -159,14 +159,14 @@ quickly decided to just make that automatic.  Wolf and Doom had explicit "use"
 buttons, but we did away with them on Quake with contact or proximity activation
 on everything.  Modern games have generally brought explicit activation back by
 situationally overriding attack, but hunting for push walls in Wolf by shooting
-every tile wouldn't work out.  There were some combat tactics involving
+every tile would not work out.  There were some combat tactics involving
 explicitly shutting doors that are gone with automatic-use, and some secret push
 walls are trivially found when you pick up an item in front of them now, but
 this was definitely the right decision.
 
 You could switch weapons in Wolf, but almost nobody actually did, except for
 occasionally conserving ammo with the chain gun, or challenges like
-"beat the game with only the knife".  That functionality didn't justify the
+"beat the game with only the knife".  That functionality did not justify the
 interface clutter.
 
 The concept of "lives" was still in wolf, with 1-ups and extras at certain scores.
@@ -176,7 +176,7 @@ arcade oriented.  I miss the concept of "score" in a lot of games today, but I
 think the finite and granular nature of the enemies, tasks, and items in Wolf
 is better suited to end-of-level stats, so I removed both lives and score, but
 added persistent awards for par time, 100% kills, 100% secrets, and 100% treasures.
-The award alone wasn't enough incentive to make treasures relevant, so I turned
+The award alone was not enough incentive to make treasures relevant, so I turned
 them into uncapped +1 health crumbs, which makes you always happy to find them.
 
 I increased the pickup radius for items, which avoided the mild frustration of
@@ -184,7 +184,7 @@ having to sometimes make a couple passes at an item when you are cleaning up a
 room full of stuff.
 
 I doubled the starting ammo on a fresh level start.  If a player just got
-killed, it isn't good to frustrate them even more with a severe ammo
+killed, it is not good to frustrate them even more with a severe ammo
 conservation constraint. There was some debate about the right way to handle death:
 respawn with the level as is (good in that you can keep making progress if you
 just get one more shot off each time, bad in that weapon pickups are no longer available),
@@ -222,7 +222,7 @@ titles.
 The original point of this project was to investigate FPS control schemes for
 the iPhone, and a lot of testing was done with different schemes and parameters.
 I was sort of hoping that there would be one "obviously correct" way to control
-it, but it doesn't turn out to be the case.
+it, but it does not turn out to be the case.
 
 For a casual first time player, it is clearly best to have a single
 forward / back / turn control stick and a fire button.
@@ -239,17 +239,17 @@ Serious console gamers tend to take to the "dual stick" control modes easily for
 movement, but the placement of the fire button is problematic.  Using an index
 finger to fire is effective but uncomfortable.  I see many players just move the
 thumb to fire, using strafe movement for fine tuning aim.  It is almost tempting
-to try to hijack the side volume switch for fire, but the ergonomics aren't
-quite right, and it would be very un-Apple-like, and wouldn't be available on
-the iPod touch (plus I couldn't figure out how...).
+to try to hijack the side volume switch for fire, but the ergonomics are not
+quite right, and it would be very un-Apple-like, and would not be available on
+the iPod touch (plus I could not figure out how...).
 
 We tried a tilt-forward to fire to allow you to keep your thumbs on the dual
-control sticks, but it didn't work out very well.  Forward / back tilt has the
+control sticks, but it did not work out very well.  Forward / back tilt has the
 inherent variable holding angle problem for anything, and a binary transition
 point is hard for people to hold without continuous feedback.  Better visual
-feedback on the current angle and trip point would help, but we didn't pursue
+feedback on the current angle and trip point would help, but we did not pursue
 it much.  For a game with just, say, a rocket launcher, shake/shove-to-fire
-might be interesting, but it isn't any good for wolf.
+might be interesting, but it is not any good for wolf.
 
 It was critical for the control sticks to be analog, since digital direction
 pads have proven quite ineffective on touch screens due to progressive lack of
@@ -257,7 +257,7 @@ registration during play.  With an analog stick, the player has continuous
 visual feedback of the stick position in most cases, so they can self correct.
 Tuning the deadband and slide off behavior are important.
 
-Level design criteria has advanced a lot since Wolfenstein, but I wasn't going
+Level design criteria has advanced a lot since Wolfenstein, but I was not going
 to open up the option of us modifying the levels, even though the start of the
 first level is painfully bad for a first time player, with the tiny, symmetric
 rooms for them to get their nose mashed into walls and turned around in.
@@ -271,24 +271,24 @@ on today.
 
 It was only after I thought I was basically done with the game that Tim Willits
 pointed out the elephant in the gameplay room -- for 95% of players, wandering
-around lost in a maze isn't very much fun.
+around lost in a maze is not very much fun.
 Implementing an automap was pretty straightforward, and it probably added more
 to the enjoyment of the game than anything else.  Before adding this, I thought
 that only a truly negligible amount of people would actually finish all 60
 levels, but now I think there might be enough people that get through them to
 justify bringing the Spear of Destiny levels over later.
 
-When I was first thinking about the project I sort of assumed that we wouldn't
+When I was first thinking about the project I sort of assumed that we would not
 bother with music, but Wolf3D Redux already had code that converted the old
 id music format into ogg, so we would up with support at the beginning, and it
 turned out pretty good.  We wound up ripping the red book audio tracks from one
 of the later commercial Wolf releases and encoding at a different bitrate, but I
-probably wouldn't have bothered if not for the initial support.  It would have
-been nice to re-record the music with a high quality MIDI synth, but we didn't
+probably would not have bothered if not for the initial support.  It would have
+been nice to re-record the music with a high quality MIDI synth, but we did not
 have the original MIDI source, and Christian said that the conversion back from
 the id music format to midi was a little spotty, and would take a fair amount of
 work to get right.  I emailed Bobby Prince, the original composer, to see if he
-had any high quality versions still around, but he didn't get back with me.
+had any high quality versions still around, but he did not get back with me.
 
 The game is definitely simplistic by modern standards, but it still has its
 moments.  Getting the drop on a brown shirt just as he is pulling his pistol
@@ -302,17 +302,17 @@ Simplistic plays well on the iPhone.
 Cass and I got the game running on the iPhone very quickly, but I was a little
 disappointed that various issues around the graphics driver, the input processing,
 and the process scheduling meant that doing a locked-at-60-hz game on the iPhone
-wasn't really possible.  I hope to take these up with Apple at some point in the
+was not really possible.  I hope to take these up with Apple at some point in the
 future, but it meant that Wolf would be a roughly two tick game.  It is only
 "roughly" because there is no swapinterval support, and the timer scheduling has
-a lot of variability in it.  It doesn't seem to matter all that much, the play
+a lot of variability in it.  It does not seem to matter all that much, the play
 is still smooth and fun, but I would have liked to at least contrast it with the
 perfect limit case.
 
 It turns out that there were a couple issues that required work even at 30hz.
 For a game like Wolf, any PC that is in use today is essentially infinitely fast,
 and the Wolf3D Redux code did some things that were convenient but wasteful.
-That is often exactly the right thing to do, but the iPhone isn't quite as
+That is often exactly the right thing to do, but the iPhone is not quite as
 infinitely fast as a desktop PC.
 
 Wolfenstein (and Doom) originally drew the characters as sparse stretched
@@ -326,25 +326,25 @@ overdraw to max out the GPU and drop the framerate to 20 fps.  The solution is
 to bound the solid pixels in the texture and only draw that restricted area,
 which solves the problem with most items, but Wolf has a few different heavily
 used ceiling lamp textures that have a small lamp at the top and a thin but
-full width shadow at the bottom.  A single bounds doesn't exclude many texels,
+full width shadow at the bottom.  A single bounds does not exclude many texels,
 so I wound up including two bounds, which made them render many times faster.
 
 The other problem was CPU related.  Wolf3d Redux used the original ray casting
 scheme to find out which walls were visible, then called a routine to draw each
 wall tile with OpenGL calls.  The code looked something like this:
 
-```
-    DrawWall( int wallNum ) {
+``` C
+    DrawWall (int wallNum) {
         char   name[128];
         texture_t   *tex;
-        sprintf( name, "walls/%d.tga", wallNum );
-        tex = FindTexture( name );
+        sprintf(name, "walls/%d.tga", wallNum);
+        tex = FindTexture(name);
         ...
     }
-    texture_t FindTexture( const char *name ) {
+    texture_t FindTexture(const char *name) {
         int   i;
-        for ( i = 0 ; i < numTextures ; i++ ) {
-           if ( !strcmp( name, texture[name]->name ) ) {
+        for ((i = 0); (i < numTextures); i++) {
+           if (!strcmp(name, texture[name]->name)) {
               return texture[name];
            }
         }
@@ -359,7 +359,7 @@ However, some later levels with huge open areas could have over a hundred
 visible tiles, and that led to 20hz again.  The solution was a trivial change
 to something resembling:
 
-```
+``` C
     DrawWall( int wallNum ) {
         texture_t   *tex = wallTextures[wallNum];
         ...
@@ -371,14 +371,14 @@ the original games and turned them into cleaner files with modern formats.
 Unfortunately, an attempt at increasing the quality of the original art assets
 by using hq2x graphics scaling to turn the 64x64 art into better filtered
 128x128 arts was causing lots of sprites to have fringes around them due to
-incorrect handling of alpha borders. It wasn't possible to fix it up at load time,
+incorrect handling of alpha borders. It was not possible to fix it up at load time,
 so I had to do the proper outline-with-color-but-0-alpha operations in a
 modified version of the extractor.  I also decided to do all the format
 conversion and mip generation there, so there was no significant CPU time spent
 during texture loading, helping to keep the load time down.  I experimented with
 the PVRTC formats, but while it would have been ok for the walls, unlike with
-DXT you can't get a lossless alpha mask out of it, so it wouldn't have worked
-for the sprites.  Besides, you really don't want to mess with the carefully
+DXT you cannot get a lossless alpha mask out of it, so it would not have worked
+for the sprites.  Besides, you really do not want to mess with the carefully
 chosen pixels in a 64x64 block very much when you scale it larger than the
 screen on occasion.
 
@@ -396,7 +396,7 @@ Traditionally, UI code has separate drawing and input processing code, but on a
 touchscreen device, it often works well to do a combined
 "immediate mode interface", with code like this:
 
-```
+``` C
     if ( DrawPicWithTouch( x, y, w, h, name ) ) {
         menuState = newState;
     }
@@ -406,12 +406,12 @@ Doing that for the floating user gameplay input controls would introduce a frame
 of response latency, but for menus and such, it works very well.
 
 One of the worst moments during the development was when I was getting ready to
-hook up the automatic savegame on app exit.  There wasn't any savegame code.
+hook up the automatic savegame on app exit.  There was not any savegame code.
 I went back and grabbed the original 16 bit dos code for load / save game, but
 when I compiled I found out that the Wolf3d Redux codebase had changed a lot
 more than just the near / far pointer issues, asm code, and comment blocks.
 The changes were sensible things, like grouping more variables into structures
-and defining enums for more things, but it did mean that I wasn't dealing with
+and defining enums for more things, but it did mean that I was not dealing with
 the commercially tested core that I thought I was.  It also meant that I was
 a lot more concerned about a strange enemy lerping through the world bug I had
 seen a couple times.
@@ -428,7 +428,7 @@ while the framework around it here was several times that.
 Looking through the original code brought back some memories.
 I stopped signing code files years ago, but the top of WL_MAIN.C made me smile:
 
-```
+``` C
     /*
     =============================================================================
 
@@ -442,23 +442,23 @@ I stopped signing code files years ago, but the top of WL_MAIN.C made me smile:
     */
 ```
 
-It wasn't dated, but that would have been in 1991.
+It was not dated, but that would have been in 1991.
 
 In the end, I decided to stick with the Redux codebase, but I got a lot more
 free with hacking big chunks of it out.  I reimplemented load / save game
 (fixing the inevitable pointer bugs involved), and by littering asserts
 throughout the code, I tracked the other problem down to an issue with making a
 signed comparison against one of the new enum types that compare as unsigned.
-I'm still not positive if this was the right call, since the codebase is sort of
-a mess with lots of vestigial code that doesn't really do anything, and I don't
+I am still not positive if this was the right call, since the codebase is sort of
+a mess with lots of vestigial code that does not really do anything, and I do not
 have time to clean it all up right now.
 
 Of course, someone else is welcome to do that.  The full source code for the
 commercial app is available on the web site.  There was a little thought given
-to the fact that if I had reverted to the virgin source, the project wouldn't
+to the fact that if I had reverted to the virgin source, the project would not
 be required to be under the GPL.  Wolf and the app store presents a sort of
-unique situation -- a user can't just compile the code and choose not to pay for
-the app, because most users aren't registered developers, and the data isn't
+unique situation -- a user cannot just compile the code and choose not to pay for
+the app, because most users are not registered developers, and the data is not
 readily available, but there is actually some level of commercial risk in the
 fast-moving iPhone development community.  It will not be hard to take the code
 that is already fun to play, pull a bunch of fun things off the net out of
@@ -472,6 +472,6 @@ quality product and links to the original Wolf app, we can start having links to
 "wolf derived" or "wolf related" projects.
 That should turn out to be a win for everyone.
 
-I'm going back to Rage for a while, but I do expect Classic Doom to come fairly
+I am going back to Rage for a while, but I do expect Classic Doom to come fairly
 soon for the iPhone.
 
