@@ -55,70 +55,76 @@ dnl#--------------------------------------------------
 dnl# Set build flags based on environment
 dnl#--------------------------------------------------
 
-dnl Set some target options
+dnl# Set some target options
 
-cflags_save="$CFLAGS"
+cflags_save="${CFLAGS}"
 ldflags_save="$LDFLAGS"
-if test -z "$GCC"; then
-        case $host in 
-        arm-*-*)
-                DEBUG="-g -D_ARM_ASSEM_" 
-                CFLAGS="-O -D_ARM_ASSEM_"
-                PROFILE="-p -g -O -D_ARM_ASSEM_" ;;
-        *)
-                DEBUG="-g"
-                CFLAGS="-O"
-                PROFILE="-g -p" ;;
-        esac
+if test -z "${GCC}"; then
+  case ${host} in 
+    arm-*-*)
+      DEBUG="-g -D_ARM_ASSEM_" 
+      CFLAGS="-O -D_ARM_ASSEM_"
+      PROFILE="-p -g -O -D_ARM_ASSEM_"
+      ;;
+    *)
+      DEBUG="-g"
+      CFLAGS="-O"
+      PROFILE="-g -p"
+      ;;
+  esac
 else
-
-        case $host in 
-        arm-*-*)
-                DEBUG="-g -Wall -D__NO_MATH_INLINES -fsigned-char -D_ARM_ASSEM_"
-                CFLAGS="-O2 -D_ARM_ASSEM_ -fsigned-char"
-                PROFILE="-W -pg -g -O2 -D_ARM_ASSEM_ -fsigned-char -fno-inline-functions";;
-
-        *)
-                DEBUG="-g -Wall -D__NO_MATH_INLINES -fsigned-char"
-                CFLAGS="-O2 -Wall -fsigned-char"
-                PROFILE="-Wall -pg -g -O2 -fsigned-char -fno-inline-functions";;
-        esac
+  case ${host} in 
+    arm-*-*)
+      DEBUG="-g -Wall -D__NO_MATH_INLINES -fsigned-char -D_ARM_ASSEM_"
+      CFLAGS="-O2 -D_ARM_ASSEM_ -fsigned-char"
+      PROFILE="-W -pg -g -O2 -D_ARM_ASSEM_ -fsigned-char -fno-inline-functions"
+      ;;
+    *)
+      DEBUG="-g -Wall -D__NO_MATH_INLINES -fsigned-char"
+      CFLAGS="-O2 -Wall -fsigned-char"
+      PROFILE="-Wall -pg -g -O2 -fsigned-char -fno-inline-functions"
+      ;;
+  esac
 fi
-CFLAGS="$CFLAGS $cflags_save -D_REENTRANT"
-LDFLAGS="$LDFLAGS $ldflags_save"
+CFLAGS="${CFLAGS} ${cflags_save} -D_REENTRANT"
+LDFLAGS="${LDFLAGS} ${ldflags_save}"
 
 
 # Test whenever ld supports -version-script
+unset lt_cv_path_LD
 LT_PATH_LD
 AC_PROG_LD_GNU
-if test "x$lt_cv_prog_gnu_ld" = "xyes"; then
-   SHLIB_VERSION_ARG="Wl,--version-script=Version_script"
+if test "x${lt_cv_prog_gnu_ld}" = "xyes"; then
+  SHLIB_VERSION_ARG="Wl,--version-script=Version_script"
 
-   dnl Set extra linker options
-   case "$target_os" in
-  linux* | solaris* )
-    SHLIB_VERSION_ARG="-Wl,--version-script=Version_script"
-    ;;
-  *)
-    ;;
+  dnl# Set extra linker options
+  case "${target_os}" in
+    linux* | solaris* )
+      SHLIB_VERSION_ARG="-Wl,--version-script=Version_script"
+      ;;
+    *)
+      ;;
    esac
-   LDFLAGS="$LDFLAGS $SHLIB_VERSION_ARG"
+   LDFLAGS="${LDFLAGS} ${SHLIB_VERSION_ARG}"
 fi
 
 dnl#--------------------------------------------------
 dnl# Options 
 dnl#--------------------------------------------------
 
-AC_ARG_ENABLE(
-   low-accuracy,
-   [  --enable-low-accuracy   enable 32 bit only multiply operations],
-   CFLAGS="$CFLAGS -D_LOW_ACCURACY_"
-)
+AC_ARG_ENABLE([low-accuracy],
+   [AS_HELP_STRING([--enable-low-accuracy],
+                   [enable 32 bit only multiply operations])],
+   [CFLAGS="${CFLAGS} -D_LOW_ACCURACY_"])
 
 dnl#--------------------------------------------------
 dnl# Check for headers
 dnl#--------------------------------------------------
 
+AC_DEFUN([AC_REQUIRE_HEADER_STDC],[
+  AC_REQUIRE([AC_HEADER_STDC])
+])
+AC_REQUIRE_HEADER_STDC
 unset ac_cv_header_memory_h
 AC_CHECK_HEADER([memory.h],[CFLAGS="${CFLAGS} -DUSE_MEMORY_H"],[:])
 AC_CHECK_HEADERS([fcntl.h malloc.h malloc/malloc.h])
