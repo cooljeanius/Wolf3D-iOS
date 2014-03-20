@@ -1,3 +1,11 @@
 *.cache
 *.log
 *~
+*deps/*.*o
+Makefile
+Version_script
+config.h
+*.status
+debian/Makefile
+libtool
+stamp-*
