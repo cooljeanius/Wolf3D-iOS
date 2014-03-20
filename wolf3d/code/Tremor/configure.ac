@@ -4,14 +4,18 @@ dnl#------------------------------------------------
 dnl# Initialization and Versioning
 dnl#------------------------------------------------
 
-AC_INIT(mdct.c)
+AC_PREREQ([2.69])
+AC_INIT([libvorbisidec],[1.2.0])
+AC_CONFIG_SRCDIR([mdct.c])
+AC_CONFIG_AUX_DIR([build-aux])
+AC_CONFIG_MACRO_DIR([m4])
 
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
 
 AM_CONFIG_HEADER([config.h])
 
-AM_INIT_AUTOMAKE(libvorbisidec,1.2.0)
+AM_INIT_AUTOMAKE([foreign])
 
 dnl# Library versioning
 
@@ -103,13 +107,20 @@ dnl --------------------------------------------------
 dnl Check for headers
 dnl --------------------------------------------------
 
-AC_CHECK_HEADER(memory.h,CFLAGS="$CFLAGS -DUSE_MEMORY_H",:)
+unset ac_cv_header_memory_h
+AC_CHECK_HEADER([memory.h],[CFLAGS="${CFLAGS} -DUSE_MEMORY_H"],[:])
+AC_CHECK_HEADERS([fcntl.h malloc.h malloc/malloc.h])
 
 dnl --------------------------------------------------
 dnl Check for typedefs, structures, etc
 dnl --------------------------------------------------
 
-dnl none
+AC_C_BIGENDIAN
+AC_C_INLINE
+AC_C_PROTOTYPES
+AC_TYPE_INT16_T
+AC_TYPE_INT32_T
+AC_TYPE_INT64_T
 
 dnl --------------------------------------------------
 dnl Check for library functions
@@ -117,6 +128,7 @@ dnl --------------------------------------------------
 
 AC_FUNC_ALLOCA
 AC_FUNC_MEMCMP
+AC_CHECK_FUNCS([memchr memset])
 
 dnl --------------------------------------------------
 dnl Do substitutions
@@ -128,4 +140,5 @@ AC_SUBST(LIBS)
 AC_SUBST(DEBUG)
 AC_SUBST(PROFILE)
 
-AC_OUTPUT(Makefile Version_script)
+AC_CONFIG_FILES([Makefile Version_script])
+AC_OUTPUT

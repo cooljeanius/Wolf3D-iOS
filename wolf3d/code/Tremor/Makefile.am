@@ -1,6 +1,8 @@
+ACLOCAL_AMFLAGS = -I m4 --install
+
 AUTOMAKE_OPTIONS = foreign
 
-INCLUDES = -I./
+AM_CPPFLAGS = -I./
 
 lib_LTLIBRARIES = libvorbisidec.la
 
