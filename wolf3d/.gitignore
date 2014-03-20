@@ -1,0 +1,12 @@
+*.app
+*.dSYM
+*.o
+*.dat
+*.hmap
+*.dep
+*.build
+*.pbxsymbols
+*.pbxbtree
+*.pbxstrings
+*.pbxindex
+build/*
