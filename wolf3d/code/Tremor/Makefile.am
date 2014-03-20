@@ -34,12 +34,22 @@ include_HEADERS = ivorbiscodec.h ivorbisfile.h ogg.h os_types.h config_types.h
 
 SUBDIRS = . debian
 
-example:
+DISTCLEANFILES = *~ .DS_Store autoscan.log
+
+distclean-local:
+	rm -rf autom4te.cache || rmdir autom4te.cache
+	unlink vorbis || rmdir vorbis
+.PHONY: distclean-local
+
+example: Makefile
 	-$(LN_S) -f . vorbis
 	$(MAKE) ivorbisfile_example
+.PHONY: example
 
-debug:
-	$(MAKE) all CFLAGS="@DEBUG@" 
+debug: Makefile
+	$(MAKE) all CFLAGS="@DEBUG@"
+.PHONY: debug
 
-profile:
+profile: Makefile
 	$(MAKE) all CFLAGS="@PROFILE@"
+.PHONY: profile
