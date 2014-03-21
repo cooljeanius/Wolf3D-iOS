@@ -6,15 +6,15 @@ package="vorbisdec"
 
 olddir=`pwd`
 srcdir=`dirname $0`
-test -z "$srcdir" && srcdir=.
+test -z "${srcdir}" && srcdir=.
 
-cd "$srcdir"
+cd "${srcdir}"
 DIE=0
 
 echo "checking for autoconf... "
 (autoconf --version) < /dev/null > /dev/null 2>&1 || {
-        echo
-        echo "You must have autoconf installed to compile $package."
+        echo ""
+        echo "You must have autoconf installed to compile ${package}."
         echo "Download the appropriate package for your distribution,"
         echo "or get the source tarball at ftp://ftp.gnu.org/pub/gnu/"
         DIE=1
@@ -22,99 +22,108 @@ echo "checking for autoconf... "
 
 VERSIONGREP="sed -e s/.*[^0-9\.]\([0-9]\.[0-9]\).*/\1/"
 VERSIONMKINT="sed -e s/[^0-9]//"
-                                                                                
+
 # do we need automake?
 if test -r Makefile.am; then
   AM_OPTIONS=`fgrep AUTOMAKE_OPTIONS Makefile.am`
-  AM_NEEDED=`echo $AM_OPTIONS | $VERSIONGREP`
-  if test x"$AM_NEEDED" = "x$AM_OPTIONS"; then
+  AM_NEEDED=`echo ${AM_OPTIONS} | ${VERSIONGREP}`
+  if test "x${AM_NEEDED}" = "x${AM_OPTIONS}"; then
     AM_NEEDED=""
   fi
-  if test -z $AM_NEEDED; then
-    echo -n "checking for automake... "
+  if test -z "${AM_NEEDED}"; then
+    echo "checking for automake... \c"
     AUTOMAKE=automake
     ACLOCAL=aclocal
-    if ($AUTOMAKE --version < /dev/null > /dev/null 2>&1); then
+    if (${AUTOMAKE} --version < /dev/null > /dev/null 2>&1); then
       echo "yes"
     else
       echo "no"
-      AUTOMAKE=
+      AUTOMAKE=""
     fi
   else
-    echo -n "checking for automake $AM_NEEDED or later... "
-    for am in automake-$AM_NEEDED automake$AM_NEEDED automake; do
-      ($am --version < /dev/null > /dev/null 2>&1) || continue
-      ver=`$am --version < /dev/null | head -n 1 | $VERSIONGREP | $VERSIONMKINT`
-      verneeded=`echo $AM_NEEDED | $VERSIONMKINT`
-      if test $ver -ge $verneeded; then
-        AUTOMAKE=$am
-        echo $AUTOMAKE
+    echo "checking for automake ${AM_NEEDED} or later... \c"
+    for am in automake-${AM_NEEDED} automake${AM_NEEDED} automake; do
+      (${am} --version < /dev/null > /dev/null 2>&1) || continue
+      ver=`${am} --version < /dev/null | head -n 1 | ${VERSIONGREP} | ${VERSIONMKINT}`
+      verneeded=`echo ${AM_NEEDED} | ${VERSIONMKINT}`
+      if test ${ver} -ge ${verneeded}; then
+        AUTOMAKE=${am}
+        echo ${AUTOMAKE}
         break
       fi
     done
-    test -z $AUTOMAKE &&  echo "no"
-    echo -n "checking for aclocal $AM_NEEDED or later... "
-    for ac in aclocal-$AM_NEEDED aclocal$AM_NEEDED aclocal; do
-      ($ac --version < /dev/null > /dev/null 2>&1) || continue
-      ver=`$ac --version < /dev/null | head -n 1 | $VERSIONGREP | $VERSIONMKINT`
-      verneeded=`echo $AM_NEEDED | $VERSIONMKINT`
-      if test $ver -ge $verneeded; then
-        ACLOCAL=$ac
-        echo $ACLOCAL
+    test -z ${AUTOMAKE} &&  echo "no"
+    echo "checking for aclocal ${AM_NEEDED} or later... \c"
+    for ac in aclocal-${AM_NEEDED} aclocal${AM_NEEDED} aclocal; do
+      (${ac} --version < /dev/null > /dev/null 2>&1) || continue
+      ver=`${ac} --version < /dev/null | head -n 1 | ${VERSIONGREP} | ${VERSIONMKINT}`
+      verneeded=`echo ${AM_NEEDED} | ${VERSIONMKINT}`
+      if test ${ver} -ge ${verneeded}; then
+        ACLOCAL=${ac}
+        echo ${ACLOCAL}
         break
       fi
     done
-    test -z $ACLOCAL && echo "no"
+    test -z ${ACLOCAL} && echo "no"
   fi
-  test -z $AUTOMAKE || test -z $ACLOCAL && {
-        echo
-        echo "You must have automake installed to compile $package."
+  test -z ${AUTOMAKE} || test -z ${ACLOCAL} && {
+        echo ""
+        echo "You must have automake installed to compile ${package}."
         echo "Download the appropriate package for your distribution,"
         echo "or get the source tarball at ftp://ftp.gnu.org/pub/gnu/"
         exit 1
   }
 fi
 
-echo -n "checking for libtool... "
-for LIBTOOLIZE in libtoolize glibtoolize nope; do
-  ($LIBTOOLIZE --version) < /dev/null > /dev/null 2>&1 && break
+echo "checking for libtool... \c"
+for LIBTOOLIZE in glibtoolize libtoolize nope; do
+  (${LIBTOOLIZE} --version) < /dev/null > /dev/null 2>&1 && break
 done
-if test x$LIBTOOLIZE = xnope; then
+if test "x${LIBTOOLIZE}" = "xnope"; then
   echo "nope."
   LIBTOOLIZE=libtoolize
 else
-  echo $LIBTOOLIZE
+  echo ${LIBTOOLIZE}
 fi
-($LIBTOOLIZE --version) < /dev/null > /dev/null 2>&1 || {
-	echo
-	echo "You must have libtool installed to compile $package."
+(${LIBTOOLIZE} --version) < /dev/null > /dev/null 2>&1 || {
+	echo ""
+	echo "You must have libtool installed to compile ${package}."
 	echo "Download the appropriate package for your system,"
 	echo "or get the source from one of the GNU ftp sites"
 	echo "listed in http://www.gnu.org/order/ftp.html"
 	DIE=1
 }
 
-if test "$DIE" -eq 1; then
+if test "${DIE}" -eq 1; then
         exit 1
 fi
 
-if test -z "$*"; then
+echo ""
+echo "Generating configuration files for ${package}, please wait...."
+echo ""
+
+export ACLOCAL_AMFLAGS="-I m4 --install"
+echo "  ${ACLOCAL} ${ACLOCAL_FLAGS} ${ACLOCAL_AMFLAGS}"
+${ACLOCAL} ${ACLOCAL_FLAGS} ${ACLOCAL_AMFLAGS} || exit 1
+echo "  ${LIBTOOLIZE} --automake --copy --force"
+${LIBTOOLIZE} --automake --copy --force || exit 1
+echo "  autoheader --force --warnings=all"
+autoheader --force --warnings=all || exit 1
+export AM_AUTOMAKE_FLAGS="--copy --force-missing --warnings=all"
+echo "  ${AUTOMAKE} --add-missing ${AUTOMAKE_FLAGS} ${AM_AUTOMAKE_FLAGS}"
+${AUTOMAKE} --add-missing ${AUTOMAKE_FLAGS} ${AM_AUTOMAKE_FLAGS} || exit 1
+echo "  autoconf --force --warnings=all"
+autoconf --force --warnings=all || exit 1
+
+cd ${olddir}
+
+if test -z "${NO_CONFIGURE}"; then
+  if test -z "$*"; then
+  		echo ""
         echo "I am going to run ./configure with no arguments - if you wish "
         echo "to pass any to it, please specify them on the $0 command line."
+        echo "If you wish to skip configuring, set NO_CONFIGURE in your env."
+        echo ""
+  fi
+  ${srcdir}/configure --enable-maintainer-mode "$@" && echo ""
 fi
-
-echo "Generating configuration files for $package, please wait...."
-
-echo "  $ACLOCAL $ACLOCAL_FLAGS"
-$ACLOCAL $ACLOCAL_FLAGS || exit 1
-echo "  $LIBTOOLIZE --automake"
-$LIBTOOLIZE --automake || exit 1
-echo "  autoheader"
-autoheader || exit 1
-echo "  $AUTOMAKE --add-missing $AUTOMAKE_FLAGS"
-$AUTOMAKE --add-missing $AUTOMAKE_FLAGS || exit 1
-echo "  autoconf"
-autoconf || exit 1
-
-cd $olddir
-$srcdir/configure --enable-maintainer-mode "$@" && echo

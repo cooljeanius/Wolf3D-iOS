@@ -17,6 +17,7 @@ AC_CANONICAL_TARGET
 AC_CONFIG_HEADERS([config.h])
 
 AM_INIT_AUTOMAKE([foreign])
+AM_MAINTAINER_MODE
 
 dnl# Library versioning
 
