@@ -38,8 +38,13 @@ DISTCLEANFILES = *~ .DS_Store autoscan.log
 
 distclean-local:
 	rm -rf autom4te.cache || rmdir autom4te.cache
-	unlink vorbis || rmdir vorbis
+	-unlink vorbis || rmdir vorbis
 .PHONY: distclean-local
+
+configure.scan:
+	autoscan
+
+MAINTAINERCLEANFILES = configure.scan
 
 example: Makefile
 	-$(LN_S) -f . vorbis

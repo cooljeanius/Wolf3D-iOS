@@ -434,6 +434,7 @@ ivorbisfile_example_LDADD = libvorbisidec.la
 include_HEADERS = ivorbiscodec.h ivorbisfile.h ogg.h os_types.h config_types.h
 SUBDIRS = . debian
 DISTCLEANFILES = *~ .DS_Store autoscan.log
+MAINTAINERCLEANFILES = configure.scan
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -941,6 +942,7 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
+	-test -z "$(MAINTAINERCLEANFILES)" || rm -f $(MAINTAINERCLEANFILES)
 clean: clean-recursive
 
 clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
@@ -1040,8 +1042,11 @@ uninstall-am: uninstall-includeHEADERS uninstall-libLTLIBRARIES
 
 distclean-local:
 	rm -rf autom4te.cache || rmdir autom4te.cache
-	unlink vorbis || rmdir vorbis
+	-unlink vorbis || rmdir vorbis
 .PHONY: distclean-local
+
+configure.scan:
+	autoscan
 
 example: Makefile
 	-$(LN_S) -f . vorbis

@@ -6,6 +6,7 @@ Makefile
 Version_script
 config.h
 confdefs.h
+conftest*
 *.status
 debian/Makefile
 libtool
